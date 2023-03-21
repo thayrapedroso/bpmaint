@@ -2,8 +2,9 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
-    "../model/formatter"
-], function (BaseController, JSONModel, History, formatter) {
+    "../model/formatter",
+    "sap/m/MessageBox"
+], function (BaseController, JSONModel, History, formatter, MessageBox) {
     "use strict";
 
     return BaseController.extend("bpmaint.controller.Object", {
@@ -18,14 +19,15 @@ sap.ui.define([
          * Called when the worklist controller is instantiated.
          * @public
          */
-        onInit : function () {
+        onInit: function () {
             // Model used to manipulate control states. The chosen values make sure,
             // detail page shows busy indication immediately so there is no break in
             // between the busy indication for loading the view's meta data
             var oViewModel = new JSONModel({
-                    busy : true,
-                    delay : 0
-                });
+                busy: true,
+                delay: 0,
+                edit: false
+            });
             this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
             this.setModel(oViewModel, "objectView");
         },
@@ -40,7 +42,7 @@ sap.ui.define([
          * If not, it will replace the current entry of the browser history with the worklist route.
          * @public
          */
-        onNavBack : function() {
+        onNavBack: function () {
             var sPreviousHash = History.getInstance().getPreviousHash();
             if (sPreviousHash !== undefined) {
                 // eslint-disable-next-line sap-no-history-manipulation
@@ -48,6 +50,37 @@ sap.ui.define([
             } else {
                 this.getRouter().navTo("worklist", {}, true);
             }
+        },
+
+        onEditPress: function () {
+            this._changeEditStatus()
+        },
+
+        onCancelPress: function () {
+            this._changeEditStatus();
+        },
+
+        onSavePress: function () {
+            var that = this;
+            let oJson = this.getView().getBindingContext().getObject();
+            let oModel = this.getOwnerComponent().getModel();
+
+            oModel.update("/BusinessPartnerSet('" + oJson.PartnerId + "')", oJson, {
+                success: (oData) => {
+                    MessageBox.success(that.getText("msgBPUpdated"), {
+                        title: that.getText("txtBPUpdated"),
+                        onClose: function () {
+                            that._onNavBack(undefined);
+                        }
+                    });
+                },
+                error: (e) => {
+                    MessageBox.error(that.getText("msgBPUpdError"), {
+                        title: that.getText("txtBPUpdError")
+                    });
+                }
+            });
+
         },
 
         /* =========================================================== */
@@ -60,8 +93,8 @@ sap.ui.define([
          * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
          * @private
          */
-        _onObjectMatched : function (oEvent) {
-            var sObjectId =  oEvent.getParameter("arguments").objectId;
+        _onObjectMatched: function (oEvent) {
+            var sObjectId = oEvent.getParameter("arguments").objectId;
             this._bindView("/BusinessPartnerSet" + sObjectId);
         },
 
@@ -71,7 +104,7 @@ sap.ui.define([
          * @param {string} sObjectPath path to the object to be bound
          * @private
          */
-        _bindView : function (sObjectPath) {
+        _bindView: function (sObjectPath) {
             var oViewModel = this.getModel("objectView");
 
             this.getView().bindElement({
@@ -88,7 +121,7 @@ sap.ui.define([
             });
         },
 
-        _onBindingChange : function () {
+        _onBindingChange: function () {
             var oView = this.getView(),
                 oViewModel = this.getModel("objectView"),
                 oElementBinding = oView.getElementBinding();
@@ -104,11 +137,18 @@ sap.ui.define([
                 sObjectId = oObject.PartnerId,
                 sObjectName = oObject.BusinessPartnerSet;
 
-                oViewModel.setProperty("/busy", false);
-                oViewModel.setProperty("/shareSendEmailSubject",
-                    oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
-                oViewModel.setProperty("/shareSendEmailMessage",
-                    oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
+            oViewModel.setProperty("/busy", false);
+            oViewModel.setProperty("/shareSendEmailSubject",
+                oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
+            oViewModel.setProperty("/shareSendEmailMessage",
+                oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
+        },
+
+        _changeEditStatus: function () {
+            let oViewModel = this.getModel("objectView");
+            let bEdit = oViewModel.getProperty("/edit");
+
+            oViewModel.setProperty("/edit", !bEdit);
         }
     });
 
