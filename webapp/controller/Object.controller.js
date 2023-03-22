@@ -62,7 +62,6 @@ sap.ui.define([
 
         onSavePress: function () {
             var that = this;
-            //let oJson = this.getView().getBindingContext().getObject();
             let oModel = this.getOwnerComponent().getModel();
 
             let oJson = {
