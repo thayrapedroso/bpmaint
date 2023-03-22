@@ -49,7 +49,7 @@
                                     priority="NeverOverflow"/>
                             </layoutData>
                         </SearchField>
-                        <Button id="buttonCreate" text="{i18n>btnCreate}" type="Default" press="onCreatePress" />
+                        <Button id="buttonCreate" icon="sap-icon://add" text="{i18n>btnCreate}" type="Default" press="onCreatePress" />
                     </OverflowToolbar>
                 </headerToolbar>
 

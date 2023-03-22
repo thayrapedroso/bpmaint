@@ -31,56 +31,56 @@
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtPartnerType}">
                             <form:fields> 
-                                <Input value="{PartnerType}" editable="{objectView>/edit}"/>
+                                <Input id="txtPartnerType" value="{PartnerType}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtPartnerName}">
                             <form:fields> 
-                                <Input value="{PartnerName1}" editable="{objectView>/edit}"/> 
-                                <Input value="{PartnerName2}" editable="{objectView>/edit}"/>
+                                <Input id="txtPartnerName1" value="{PartnerName1}" editable="{objectView>/edit}"/> 
+                                <Input id="txtPartnerName2" value="{PartnerName2}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtSearchTerm}">
                             <form:fields> 
-                                <Input value="{SearchTerm1}" editable="{objectView>/edit}"/> 
-                                <Input value="{SearchTerm2}" editable="{objectView>/edit}"/>
+                                <Input id="txtSearchTerm1" value="{SearchTerm1}" editable="{objectView>/edit}"/> 
+                                <Input id="txtSearchTerm2" value="{SearchTerm2}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                     </form:FormContainer>
                     <form:FormContainer title="{i18n>txtAddressData}">
                         <form:FormElement label="{i18n>txtStreet}">
                             <form:fields> 
-                                <Input value="{Street}" editable="{objectView>/edit}"/>
+                                <Input id="txtStreet" value="{Street}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtHouseNumber}">
                             <form:fields> 
-                                <Input value="{HouseNumber}" editable="{objectView>/edit}"/>
+                                <Input id="txtHouseNumber" value="{HouseNumber}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtDistrict}">
                             <form:fields> 
-                                <Input value="{District}" editable="{objectView>/edit}"/>
+                                <Input id="txtDistrict" value="{District}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtCity}">
                             <form:fields> 
-                                <Input value="{City}" editable="{objectView>/edit}"/>
+                                <Input id="txtCity" value="{City}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtRegion}">
                             <form:fields> 
-                                <Input value="{Region}" editable="{objectView>/edit}"/>
+                                <Input id="txtRegion" value="{Region}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtZipCode}">
                             <form:fields> 
-                                <Input value="{ZipCode}" editable="{objectView>/edit}"/>
+                                <Input id="txtZipCode" value="{ZipCode}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtCountry}">
                             <form:fields> 
-                                <Input value="{Country}" editable="{objectView>/edit}"/>
+                                <Input id="txtCountry" value="{Country}" editable="{objectView>/edit}"/>
                             </form:fields>
                         </form:FormElement>
                     </form:FormContainer>
