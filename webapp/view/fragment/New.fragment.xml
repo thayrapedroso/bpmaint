@@ -21,7 +21,7 @@
                     <form:FormContainer title="{i18n>txtCentralData}">
                         <form:FormElement label="{i18n>txtPartnerType}">
                             <form:fields> 
-                                <Input id="txtPartnerType" value="{worklistView>/New/PartnerType}" />
+                                <Input id="txtPartnerType" value="{worklistView>/New/PartnerType}" required="true" />
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtPartnerName}">
@@ -60,7 +60,7 @@
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtRegion}">
                             <form:fields> 
-                                <Input id="txtRegion" value="{worklistView>/New/Region}" />
+                                <Input id="txtRegion" value="{worklistView>/New/Region}" maxLength="3" required="true" />
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtZipCode}">
