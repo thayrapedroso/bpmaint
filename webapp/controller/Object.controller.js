@@ -30,6 +30,8 @@ sap.ui.define([
             });
             this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
             this.setModel(oViewModel, "objectView");
+
+            this.carregaTipo();
         },
         /* =========================================================== */
         /* event handlers                                              */
@@ -57,7 +59,8 @@ sap.ui.define([
         },
 
         onCancelPress: function () {
-            this._changeEditStatus();
+            //this._changeEditStatus();
+            this._onNavBack(undefined);
         },
 
         onSavePress: function () {
@@ -66,7 +69,8 @@ sap.ui.define([
 
             let oJson = {
                 PartnerId: this.getView().getBindingContext().getObject().PartnerId,
-                PartnerType: this.byId("txtPartnerType").getValue(),
+                //PartnerType: this.byId("txtPartnerType").getValue(),
+                PartnerType: this.byId("cbTipo").getSelectedKey(),
                 PartnerName1: this.byId("txtPartnerName1").getValue(),
                 PartnerName2: this.byId("txtPartnerName2").getValue(),
                 SearchTerm1: this.byId("txtSearchTerm1").getValue(),
@@ -111,6 +115,20 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").objectId;
             this._bindView("/BusinessPartnerSet" + sObjectId);
+        },
+
+        _limpaCampos: function () {
+            this.byId("txtPartnerName1").setValue("");
+            this.byId("txtPartnerName2").setValue("");
+            this.byId("txtSearchTerm1").setValue("");
+            this.byId("txtSearchTerm2").setValue("");
+            this.byId("txtStreet").setValue("");
+            this.byId("txtHouseNumber").setValue("");
+            this.byId("txtDistrict").setValue("");
+            this.byId("txtCity").setValue("");
+            this.byId("txtRegion").setValue("");
+            this.byId("txtZipCode").setValue("");
+            this.byId("txtCountry").setValue("");
         },
 
         /**
@@ -164,6 +182,20 @@ sap.ui.define([
             let bEdit = oViewModel.getProperty("/edit");
 
             oViewModel.setProperty("/edit", !bEdit);
+        },
+
+        carregaTipo: function () {
+            let cbTipo = this.byId("cbTipo");
+
+            cbTipo.addItem(new sap.ui.core.Item({
+                key: 1,
+                text: this.getResourceBundle().getText("txtOrganization")
+            }));
+
+            cbTipo.addItem(new sap.ui.core.Item({
+                key: 2,
+                text: this.getResourceBundle().getText("txtPerson")
+            }));
         }
     });
 

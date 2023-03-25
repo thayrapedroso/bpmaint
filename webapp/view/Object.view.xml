@@ -31,7 +31,8 @@
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtPartnerType}">
                             <form:fields> 
-                                <Input id="txtPartnerType" value="{PartnerType}" editable="{objectView>/edit}"/>
+                                <!--Input id="txtPartnerType" value="{PartnerType}" editable="{objectView>/edit}"/-->
+                                <ComboBox id="cbTipo" enabled="{objectView>/edit}" selectedKey="{PartnerType}" />
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtPartnerName}">
@@ -75,12 +76,17 @@
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtZipCode}">
                             <form:fields> 
-                                <Input id="txtZipCode" value="{ZipCode}" editable="{objectView>/edit}"/>
+                                <!--Input id="txtZipCode" value="{ZipCode}" editable="{objectView>/edit}"/-->
+                                <MaskInput id="txtZipCode" value="{ZipCode}" mask="99999-999" placeholderSymbol="_" editable="{objectView>/edit}" />
                             </form:fields>
                         </form:FormElement>
                         <form:FormElement label="{i18n>txtCountry}">
                             <form:fields> 
-                                <Input id="txtCountry" value="{Country}" editable="{objectView>/edit}"/>
+                                <Input id="txtCountry" value="{Country}" editable="{objectView>/edit}" showValueHelp="true" suggestionItems="{/CountrySet}">
+			                        <suggestionItems>
+                                        <core:Item text="{Land}" />
+                                    </suggestionItems>
+                                </Input>
                             </form:fields>
                         </form:FormElement>
                     </form:FormContainer>
